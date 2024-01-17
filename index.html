@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Routine Manager</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="root">
+      <main>
+        <header>
+          <h1>{{header || "Deafult Welcome Message"}}</h1>
+          <button @click="isAddingTask = !isAddingTask">
+            {{isAddingTask ? 'Cancel' : 'Add Task'}}
+          </button>
+        </header>
+
+        <form v-if="isAddingTask" @submit.prevent="saveTask">
+          <div>
+            <label for="taskName">Task Name</label>
+            <input
+              v-model="taskName"
+              type="text"
+              id="taskName"
+              placeholder="Add Your Task Here........"
+            />
+          </div>
+          <div>
+            <label for="priority">Set Priority</label>
+            <input type="checkbox" id="priority" v-model="priority" />
+          </div>
+          <button
+            :disabled="taskName.length < 6"
+            :style="{cursor: taskName.length < 6 ? 'not-allowed' : 'pointer' }"
+          >
+            Save Routine
+          </button>
+        </form>
+      </main>
+
+      <section>
+        <div>
+          <h1>Unfinished Task</h1>
+          <p>{{unFinishedTasks.length === 0 ? "NO TASK ADDED" : ""}}</p>
+
+          <ul>
+            <li
+              v-for="task in unFinishedTasks"
+              :key="task.id"
+              class="unfinished"
+            >
+              {{task.taskName}}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h1>All Tasks</h1>
+          <p>{{tasks.length === 0 ? "NO TASK ADDED" : ""}}</p>
+
+          <ul>
+            <li
+              v-for="task in tasks"
+              :key="task.id"
+              :class="['listItem', task.priority ? 'priority' : '', {isDone: task.done}]"
+              @click="task.done = !task.done"
+            >
+              {{task.taskName}}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h1>Finished Tasks</h1>
+          <p>{{finishedTasks.length === 0 ? "NO TASK ADDED" : ""}}</p>
+
+          <ul>
+            <li v-for="task in finishedTasks" :key="task.id" class="finished">
+              {{task.taskName}}
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            header: "Welcome to your routine manager",
+            taskName: "",
+            priority: false,
+            isAddingTask: false,
+            tasks: [],
+          };
+        },
+        computed: {
+          finishedTasks() {
+            const finished = this.tasks.filter((task) => task.done);
+            return finished;
+          },
+          unFinishedTasks() {
+            const unFinished = this.tasks.filter((task) => !task.done);
+            return unFinished;
+          },
+        },
+        methods: {
+          saveTask() {
+            const newTask = {
+              id: this.tasks.length + 1,
+              taskName: this.taskName,
+              priority: this.priority,
+              done: false,
+            };
+            this.tasks.push(newTask);
+            this.priority = false;
+            this.taskName = "";
+          },
+        },
+      });
+
+      app.mount("#root");
+    </script>
+  </body>
+</html>

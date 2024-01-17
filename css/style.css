@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+main {
+  width: 500px;
+  margin: auto;
+}
+
+button {
+  width: 150px;
+  padding: 10px 0;
+  font-size: larger;
+  cursor: pointer;
+  background-color: aqua;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+header {
+  text-align: center;
+}
+label {
+  display: block;
+  margin: 8px 0;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: larger;
+}
+input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+}
+input[type="text"]:focus {
+  outline: 5px dotted green;
+}
+
+section {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+ul {
+  list-style-type: none;
+}
+
+section > div {
+  width: 20%;
+  text-align: center;
+}
+
+.listItem {
+  border: 1px solid black;
+  margin: 5px 0;
+  padding: 5px 0;
+  background-color: lightsteelblue;
+  color: black;
+  font-size: larger;
+}
+
+.priority {
+  border: 2px dotted red;
+  border-radius: 20px;
+}
+
+.isDone {
+  text-decoration: line-through;
+  text-transform: uppercase;
+}
+
+.unfinished {
+  background-color: red;
+  color: whitesmoke;
+  border: 2px dotted red;
+  padding: 10px 0;
+  margin: 5px 0;
+}
+.finished {
+  background-color: green;
+  color: whitesmoke;
+  border: 2px dotted green;
+  padding: 10px;
+  margin: 5px 0;
+}
